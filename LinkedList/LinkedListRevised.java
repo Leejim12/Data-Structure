@@ -22,6 +22,17 @@ public class LinkedListRevised<Data> {									// Linked List (E data, Node<E> n
      head = null;
 	}
 
+// (그냥 연습용) 
+//	-1.연결 리스트 비어있는지 판단.
+// → head = null
+// 	-2.노드가 1개
+// → head.next ==null
+//  -3.노드가 2개
+// → head.next.next == null
+//  -4.꼬리노드인지 판단
+// → p.next == null
+	
+	
 	
 //메소드0. Data를 가져와야함! --> 얘를 obj로 만들꺼임.
 //	public Data getData(Data a) {										// a라는 데이터를 받을 경우, 
@@ -60,51 +71,57 @@ public class LinkedListRevised<Data> {									// Linked List (E data, Node<E> n
 		return null; 												// null : 데이터 없습니당.
 	}
 	
-	
-//메소드2. 꼬리 노드 삽입 ---//
-//	public void add(Data obj,Comparator<? super Data> c ) {
-//		// (주석) 기본 add 메소드 :: 그러나, 이건 그냥 꼬리에 넣을 뿐 정렬이 되진 않는다.
-//		if(this.head==null) {										// head가 null일 경우 ptr생성 및 head에 집어넣음. 
-//			Node<Data> ptr = new Node<Data>(obj);
-//			this.head=ptr;
-//		}else {
-//			Node<Data> ptr = this.head;								// head가 null이 아니면, ptr은 head.
-//			while(ptr.next != null) ptr=ptr.next;					// ptr.next가 null일때까지 ptr 이동.
-//			ptr.next = new Node<Data>(obj);
-//		}
-//	}
 
 //메소드2. 노드 삽입 // : 노드 삽입 시, 자동으로 정렬이 되게().
-	public void add(Data obj,Comparator<? super Data> c) {
-		if(this.head==null) {
-			Node<Data> ptr = new Node<Data>(obj);
-			this.head = ptr;
-		}else {
+	public void add(Data obj,Comparator<? super Data> c) {		
+	// ▼ 기본 
+		Node<Data> OB = new Node<Data>(obj); 	
+		if(this.head == null) {
+			this.head = OB;} 										// 경우1. Head 비어있을때.
+		else if(head.next == null) { 								// 경우2. 노드 1개일때
+			if(c.compare(obj, head.data)==1) {
+				head.next = OB;
+			}else {Node<Data> temp = this.head; this.head = OB; OB.next = temp;}
+		}
+
+	// ▼(1) 도전 ▼///////////////////////////////////////////////////	/////////////////////
+		else {														// 경우3. 이외의 경우들
 			Node<Data> ptr = this.head;
-			Node<Data> Preptr = this.head;
-			while(c.compare(obj, ptr.data)== 1) {
-				Preptr = ptr;
-				if(ptr.next==null) {
-					ptr.next = new Node<Data>(obj);
+			while(c.compare(obj, ptr.next.data)==-1) {
+				ptr = ptr.next;
+				if(ptr.next == null) {
+					ptr.next = OB;
 					break;
 				}
-				ptr=ptr.next;
 			}
-			Node<Data> tp = new Node<Data>(obj);
-			
-			Preptr.next = tp;
-			tp.next = ptr;
-			if(c.compare(ptr.data, ptr.next.data)==1) {
-				ptr.next=null;
-			}
-			
-//			if(c.compare(obj, ptr.data)== 1) {
-//				//넘어가기
-//			}else if(c.compare(obj, ptr.data)== -1) {
-//			}
+				if(ptr.next == null)ptr.next = OB;
+				else {
+				Node<Data> temp = ptr.next; // temp 생성 ///// ptr → OB → temp
+				OB.next = temp;					 // OB → temp
+				ptr.next = OB;					 // ptr → OB
+				}
 		}
 	}
 	
+//	public void add(Data obj,Comparator<? super Data> c) {		
+//	// ▼ 기본 
+//		Node<Data> OB = new Node<Data>(obj); 	
+//		if(this.head == null) {
+//			this.head = OB; return;} 					// 경우1. Head 비어있을때.
+//		Node<Data> ptr = head, q = head;				// while 돌기 위한 준비
+//		while (ptr != null) {							// ptr이 null 이 아니
+//			if (c.compare(obj, ptr.data) <= 0 ) {
+//				Node<Data> temp = new Node<Data>(obj);
+//				temp.next = ptr;
+//				{
+//					if (q == head) head = temp;
+//					else q.next = temp;
+//				}
+//			}
+//			else {
+//				q = ptr; ptr = ptr.next;
+//			}
+//		}
 	
 	
 	
