@@ -82,7 +82,6 @@ public class LinkedListRevised<Data> {                           // Linked List 
          this.head = OB; OB.next = ptr;return;
       }
       
-      
       if(head.next == null) {
          if(c.compare(OB.data, ptr.data)<0) { // (1개 있고)head가 더 크면
             this.head = OB; OB.next = ptr;return;
@@ -93,7 +92,7 @@ public class LinkedListRevised<Data> {                           // Linked List 
       while(ptr.next != null) { // 다 돌리기. * 작다 -> 넘기기, 같거나 크다 -> 넣기 //
          if(c.compare(OB.data, ptr.next.data)<0) { // OB가 더 작으면
 //            
-            Node<Data> temp = ptr.next;      // temp생성(ptr 다음꺼 저장)
+            Node<Data> temp = ptr.next;        // temp생성(ptr 다음꺼 저장)
             ptr.next = OB;                     // 
             ptr.next.next = temp;return;
          }else {
@@ -102,8 +101,6 @@ public class LinkedListRevised<Data> {                           // Linked List 
       }
       ptr.next = OB;return;                     // while 끝까지 가면 걍 마지막에 넣기
    }
-   
-   
    
 //메소드3. 노드p 삭제 ---//
    public void delete(Data obj, Comparator<? super Data> c ) {//전달 객체를 삭제
@@ -118,22 +115,6 @@ public class LinkedListRevised<Data> {                           // Linked List 
             ptr.next = ptr.next.next;
          }
       }
-      
-      //      if(this.head != null) {
-//         if(obj == head) {
-//            
-//         }
-//         else {
-//            Node<Data> ptr = this.head;
-//            Node<Data> OB = this.head;
-//            
-//            while(ptr.next != obj) {
-//               ptr = ptr.next;
-//               if(ptr==null)return;
-//            }
-//            ptr.next = new Node<Data>(obj);
-//         }
-//      }
    }
 
 //메소드4. 전체 노드 표시 ---//

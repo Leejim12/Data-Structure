@@ -52,7 +52,7 @@ public class LinkedListTesterRevised {
    }
 
    // --- 메뉴 열거형 ---//
-   enum Menu {
+   public enum Menu {
       ADD("삽입"), DELETE("삭제"), SEARCH_NO("번호 검색"), SEARCH_NAME("이름 검색"), SHOW("전체 명부 출력"), TERMINATE("종료");
 
       private final String message; // 표시할 문자열
